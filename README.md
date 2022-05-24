@@ -1,7 +1,8 @@
 # SimpleGuitarTuner
 
 This is a simple guitar tuner project for Atmega328.\
-Tested only on Simulide.
+Tested only on Simulide. \
+Compiled with avr-gcc.
 
 ## Circuit diagram
 ![plot](./Schematic.png)
