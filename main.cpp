@@ -1,10 +1,3 @@
-/*
- * GccApplication2.cpp
- *
- * Created: 02.04.2022 12:28:49
- * Author : gritist
- */ 
-
 #define F_CPU 4000000UL
 #include <util/delay.h>
 #include <avr/interrupt.h>
