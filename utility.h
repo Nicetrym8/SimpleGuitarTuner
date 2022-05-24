@@ -1,11 +1,3 @@
-/*
- * utility.h
- *
- * Created: 22.04.2022 23:33:53
- *  Author: gritist
- */ 
-
-
 #ifndef UTILITY_H_
 #define UTILITY_H_
 #define OCTAVE(_i) (uint8_t)(_i/12)+1
