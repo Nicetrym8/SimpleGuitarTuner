@@ -1,10 +1,3 @@
-/*
- * utility.cpp
- *
- * Created: 22.04.2022 23:33:37
- *  Author: gritist
- */ 
-
 #include "utility.h"
 
 float log2(float val) {
