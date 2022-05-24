@@ -1,7 +1,8 @@
 # SimpleGuitarTuner
 
-This is a simple guitar tuner project for Atmega328
-Tested only on Simulide
+This is a simple guitar tuner project for Atmega328.
+Tested only on Simulide.
+
 
 
 ## Used libraries
