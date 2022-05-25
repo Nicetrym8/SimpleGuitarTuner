@@ -79,7 +79,7 @@ int main(void)
 		FFT.Windowing(vReal, samples, FFT_WIN_TYP_NUTTALL, FFT_FORWARD);
 		FFT.Compute(vReal, vImag, samples, FFT_FORWARD);
 		FFT.ComplexToMagnitude(vReal, vImag, samples);
-		float freq = FFT.MajorPeak(vReal, samples, samplingFrequency)/4.0826226551; 
+		float freq = FFT.MajorPeak(vReal, samples, samplingFrequency)/4.0826226551; //TODO: Needs to be recalculated on a real device
 		if(!mode)res = binary_search_by_freq(freq,&cents);
 		else cents = CALC_CENTS(freq*100,res);
 		if(cents>20)cents=20;
