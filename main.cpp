@@ -79,9 +79,9 @@ int main(void)
 	nokia_lcd_draw_bitmap(logo_Bitmap,20,5,40,35);
 	nokia_lcd_render();
 	_delay_ms(2000);
+	sei();
     while (1) 
     {
-		sei();
 		nokia_lcd_clear();
 		capture_wave(vReal,vImag,samples);
 		FFT.DCRemoval();
