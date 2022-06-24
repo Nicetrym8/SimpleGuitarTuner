@@ -3,6 +3,16 @@
 #include <avr/interrupt.h>
 #include "arduinoFFT.h"
 #include "utility.h"
+extern "C"{
+	#include "nokia5110.h"
+};
+#include <avr/io.h>
+
+
+
+
+volatile uint8_t mode = 0;
+volatile uint8_t res=0;
 
 const uint8_t arrow_Width = 7;
 const uint8_t arrow_Height = 8;
@@ -17,13 +27,9 @@ const uint8_t PROGMEM logo_Bitmap[] = {
 	0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x07, 0x07, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x1f, 0x1f, 0xe7, 0xe7, 0x1f, 0x1f, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00,
 	0x00, 0x03, 0x03, 0x0f, 0x0f, 0x3f, 0x3f, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xf8, 0xf8, 0xff, 0xff, 0xf9, 0xf9, 0xff, 0xff, 0xfe, 0xfe, 0xf9, 0xf9, 0xfe, 0xfe, 0xff, 0xff, 0xff, 0xff, 0xff, 0x3f, 0x3f, 0x0f, 0x0f, 0x03, 0x03, 0x00
 };
-extern "C"{
-	#include "nokia5110.h"
-};
-#include <avr/io.h>
 
-volatile uint8_t mode = 0;
-volatile uint8_t res=0;
+
+
 arduinoFFT FFT = arduinoFFT();
 
 const uint16_t samples = 128; 
@@ -35,13 +41,16 @@ double vImag[samples];
 
 
 char buf[10] = "";
+
 ISR(INT0_vect){
 	if(mode){
 		if(++res>41)res =0;
 	}
+	_delay_ms(50);
 }
 ISR(INT1_vect){
 	mode = !mode;
+	_delay_ms(50);
 }
 void capture_wave (double* vReal, double* vImag, uint16_t count)
 {
@@ -79,7 +88,7 @@ int main(void)
 		FFT.Windowing(vReal, samples, FFT_WIN_TYP_NUTTALL, FFT_FORWARD);
 		FFT.Compute(vReal, vImag, samples, FFT_FORWARD);
 		FFT.ComplexToMagnitude(vReal, vImag, samples);
-		float freq = FFT.MajorPeak(vReal, samples, samplingFrequency)/4.0826226551; //TODO: Needs to be recalculated on a real device
+		float freq = FFT.MajorPeak(vReal, samples, samplingFrequency)/4.0826226551; 
 		if(!mode)res = binary_search_by_freq(freq,&cents);
 		else cents = CALC_CENTS(freq*100,res);
 		if(cents>20)cents=20;
